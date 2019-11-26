@@ -1,0 +1,74 @@
+---
+
+- name: Install kubectl
+  command: snap install kubectl --classic
+  become: yes
+
+- name: Install helm
+  command: snap install helm --classic
+  become: yes
+
+- name: Install Golang
+  command: snap install go --classic
+  become: yes
+
+- name: Create Golang Dir
+  file:
+    path: "{{ item.stdout }}/go"
+    state: directory
+  with_items:
+    - "{{ user_home }}"
+
+- name: Change Bashrc GOLANG Path
+  lineinfile: path="{{ item.stdout }}/.bashrc" regexp='^export GOPATH=\$HOME:{{ item.stdout }}/go' line="export GOPATH=$HOME:{{ item.stdout }}/go" state=present
+  with_items:
+    - "{{ user_home }}"
+
+- name: Alias kc to kubectl
+  lineinfile: path="{{ item.stdout }}/.bashrc" regexp='^alias kc="kubectl"' line='alias kc="kubectl"' state=present
+  with_items:
+    - "{{ user_home }}"
+
+- name: Install docker
+  package:
+    name: docker.io
+    state: present
+  become: yes
+
+- name: Install make
+  package:
+    name: build-essential
+    state: present
+  become: yes
+
+- name: Install docker helper pass
+  package:
+    name: pass
+    state: present
+  become: yes
+
+- name: Install docker helper gnupg2
+  package:
+    name: gnupg2
+    state: present
+  become: yes
+
+- name: Install dockercompose
+  package:
+    name: docker-compose
+    state: present
+  become: yes
+
+- name: Add user to docker group
+  user:
+    name: "{{ ansible_ssh_user }}"
+    append: yes
+    groups: docker
+  become: yes
+
+- name: Install Minikube
+  script: "../files/install.sh {{ item.stdout }}"
+  args:
+    creates: "{{ item.stdout }}/bin/minikube"
+  with_items:
+    - "{{ user_home }}"

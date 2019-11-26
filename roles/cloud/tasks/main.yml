@@ -1,0 +1,15 @@
+- name: Set default Minikube driver
+  command: "{{ item.stdout }}/bin/minikube config set vm-driver none"
+  with_items:
+    - "{{ user_home }}"
+
+- name: Install socat
+  package:
+    name: socat
+    state: present
+  become: yes
+
+- name: Pull helm-charts
+  command: "git clone https://github.com/DecipherNow/helm-charts.git {{ item.stdout }}/helm-charts"
+  with_items:
+    - "{{ user_home }}"

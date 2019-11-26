@@ -1,0 +1,32 @@
+{
+  "variables": {
+    "region": "us-east-2",
+    "ssh_username": "ubuntu",
+    "base_ami": "ami-04b9e92b5572fa0d1",
+    "instance_type": "t2.micro"
+  },
+  "builders": [
+    {
+      "type": "amazon-ebs",
+      "profile": "default",
+      "source_ami": "{{user `base_ami`}}",
+      "instance_type": "{{user `instance_type` }}",
+      "ssh_username": "{{user `ssh_username`}}",
+      "ami_name": "dev-in-a-box-{{timestamp}}",
+      "associate_public_ip_address": true,
+      "tags": {
+        "Builder": "Packer-Ansible"
+      }
+    }
+  ],
+  "provisioners": [
+    {
+      "type": "ansible",
+      "user": "ubuntu",
+      "playbook_file": "packerPlay.yml",
+      "extra_arguments": [
+        "--extra-vars", "ansible_python_interpreter=/usr/bin/python3"
+      ]
+    }
+  ]
+}

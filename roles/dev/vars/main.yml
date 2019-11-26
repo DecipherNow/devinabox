@@ -1,0 +1,7 @@
+virt_packages:
+  - "qemu-kvm"
+  - "libvirt-bin"
+  - "bridge-utils"
+  - "virt-manager"
+  - "libvirt-clients"
+  - "libvirt-daemon-system"

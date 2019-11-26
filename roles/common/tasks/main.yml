@@ -1,0 +1,75 @@
+---
+
+- name: Get users homedir
+  command: echo ~
+  register: user_home
+
+- name: Change Bashrc VIM
+  lineinfile: path="{{ item.stdout }}/.bashrc" regexp='^alias vi=vim' line='alias vi=vim' state=present
+  with_items:
+    - "{{ user_home }}"
+
+- name: Change Bashrc Bin Path
+  lineinfile: path="{{ item.stdout }}/.bashrc" regexp='^export PATH=\$PATH:{{ item.stdout }}/bin' line="export PATH=$PATH:{{ item.stdout }}/bin" state=present
+  with_items:
+    - "{{ user_home }}"
+
+- name: Create Bin Dir
+  file:
+    path: "{{ item.stdout }}/bin"
+    state: directory
+  with_items:
+    - "{{ user_home }}"
+
+- name: Install Vim
+  package:
+    name: vim
+    state: present
+  become: yes
+
+- name: Touch vimrc
+  command: touch "{{ item.stdout }}"/.vimrc warn=false
+  with_items:
+    - "{{ user_home }}"
+
+- name: Change vimrc expand tab
+  lineinfile: path="{{ item.stdout }}/.vimrc" regexp='^set tabstop=4 shiftwidth=4 expandtab' line='set tabstop=4 shiftwidth=4 expandtab' state=present
+  with_items:
+    - "{{ user_home }}" 
+
+- name: Install Curl
+  package:
+    name: curl
+    state: present
+  become: yes
+
+
+- name: Install TMUX
+  package:
+    name: tmux
+    state: present
+  become: yes
+
+- name: Touch tmux.conf
+  command: touch "{{ item.stdout }}"/.tmux.conf warn=false
+  with_items:
+    - "{{ user_home }}"
+
+- name: Change tmux vi copy mode
+  lineinfile: path="{{ item.stdout }}/.tmux.conf" regexp='^set-window-option -g mode-keys vi' line='set-window-option -g mode-keys vi' state=present
+  with_items:
+    - "{{ user_home }}"
+
+- name: Install Tree
+  command: snap install tree --classic
+  become: yes
+
+- name: Install silver searcher
+  command: snap install ag-mcphail
+  become: yes
+
+- name: Set Git Editor
+  command: git config --global core.editor vim
+
+- name: Set git credential store
+  command: git config --global credential.helper store

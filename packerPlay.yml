@@ -1,0 +1,18 @@
+---
+
+- hosts: all
+  remote_user: root
+  roles:
+  - common
+  - dev
+  - cloud
+  gather_facts: no
+  pre_tasks:
+    - name: "apt update"
+      raw: sudo apt-get update
+    - name: "apt upgrade"
+      raw: sudo apt-get -y upgrade
+    - name: "apt update again"
+      raw: sudo apt-get update
+    - name: "Gathering Facts"
+      setup:

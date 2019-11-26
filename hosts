@@ -1,0 +1,2 @@
+[dev]
+localhost ansible_ssh_user=nicholas ansible_ssh_extra_args='-o StrictHostKeyChecking=no'
