@@ -9,6 +9,6 @@ variable "instance_type" {
 }
 
 variable "public_key_path" {
-  default = "/home/nicholas/.ssh/id_rsa.pub"
+  default = "~/.ssh/id_rsa.pub"
   description = "SSH Key to be used to log into launched instance."
 }

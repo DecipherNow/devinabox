@@ -13,3 +13,8 @@
   command: "git clone https://github.com/DecipherNow/helm-charts.git {{ item.stdout }}/helm-charts"
   with_items:
     - "{{ user_home }}"
+
+- name: Set minikube alias
+  lineinfile: path="{{ item.stdout }}/.bashrc" regexp='^alias minikube=\'sudo minikube\'' line='alias minikube=\'sudo minikube\'' state=present
+  with_items:
+    - "{{ user_home }}"

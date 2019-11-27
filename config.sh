@@ -19,4 +19,7 @@ case $yn in
     [Nn]* ) echo -e "\nSkipping"; exit 0;;
     * ) echo -e "\nPlease answer yes or no. Defaulting to no, skipping"; exit 0;;
 esac
-echo export PUBKEY=$PUBKEY > .keyloc
+
+if [ -n ${PUBKEY} ]; then
+    echo export PUBKEY=$PUBKEY > .keyloc
+fi
