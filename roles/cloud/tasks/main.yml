@@ -15,6 +15,6 @@
     - "{{ user_home }}"
 
 - name: Set minikube alias
-  lineinfile: path="{{ item.stdout }}/.bashrc" regexp='^alias minikube=\'sudo minikube\'' line='alias minikube=\'sudo minikube\'' state=present
+  lineinfile: path="{{ item.stdout }}/.bashrc" regexp='^alias minikube=\'sudo /home/ubuntu/bin/minikube\'' line='alias minikube=\'sudo /home/ubuntu/bin/minikube\'' state=present
   with_items:
     - "{{ user_home }}"

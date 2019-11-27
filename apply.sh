@@ -13,4 +13,4 @@ fi
 cd terraform
 terraform init
 terraform apply $ARGS -auto-approve
-echo -e "\nRun the following command to access the machine:\nssh -X ubuntu@$(terraform output ec2ip) \n\nYou may need to specify your private key with -i <privkey>."
+echo -e "\nRun the following command to access the machine. You may need to specify your private key with -i <privkey> :\nssh ubuntu@$(terraform output ec2ip)"

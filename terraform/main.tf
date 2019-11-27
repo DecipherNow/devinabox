@@ -51,7 +51,7 @@ resource "aws_key_pair" "ec2key" {
 }
 
 resource "aws_security_group" "sg_22" {
-  name = "sg_22"
+  name = "devinaboxSG"
   vpc_id = "${aws_vpc.vpc.id}"
   ingress {
       from_port   = 22
@@ -61,8 +61,8 @@ resource "aws_security_group" "sg_22" {
   }
 
   ingress {
-      from_port   = 3000
-      to_port     = 3000
+      from_port   = 30000
+      to_port     = 30000
       protocol    = "tcp"
       cidr_blocks = ["0.0.0.0/0"]
   }
@@ -93,6 +93,10 @@ resource "aws_instance" "instance" {
   subnet_id = "${aws_subnet.subnet_public.id}"
   vpc_security_group_ids = ["${aws_security_group.sg_22.id}"]
   key_name = "${aws_key_pair.ec2key.key_name}"
+
+  credit_specification {
+    cpu_credits = "unlimited"
+  }
 
   root_block_device {
     volume_size = 50
