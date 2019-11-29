@@ -8,7 +8,7 @@ DevInABox works in a couple of stages. First it configures the repository by let
 `make`
 Running make will perform configuration, build the ami with packer, and launch an instance with Terraform.
 
-`make`
+`make setup`
 Will run the config and build the AMI.
 
 ## Config
