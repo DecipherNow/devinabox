@@ -1,15 +1,21 @@
 {
   "variables": {
-    "region": "us-east-2",
     "ssh_username": "ubuntu",
-    "base_ami": "ami-04b9e92b5572fa0d1",
     "instance_type": "t2.micro"
   },
   "builders": [
     {
       "type": "amazon-ebs",
       "profile": "default",
-      "source_ami": "{{user `base_ami`}}",
+      "source_ami_filter": {
+        "filters": {
+          "virtualization-type": "hvm",
+            "name": "ubuntu/images/*ubuntu-bionic-18.04-amd64-server-*",
+              "root-device-type": "ebs"
+        },
+        "owners": ["099720109477"],
+        "most_recent": true
+      },
       "instance_type": "{{user `instance_type` }}",
       "ssh_username": "{{user `ssh_username`}}",
       "ami_name": "dev-in-a-box-{{timestamp}}",

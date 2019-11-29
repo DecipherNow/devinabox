@@ -105,5 +105,6 @@ resource "aws_instance" "instance" {
 
   tags = {
         "Source" = "${var.origin_tag}"
+        "Name" = "DevInABox"
   }
 }
