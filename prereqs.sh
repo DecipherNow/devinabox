@@ -4,7 +4,7 @@
 
 
 linux() {
-    sudo apt install packer ansible awscli
+    sudo apt install packer ansible awscli build-essential
     wget -q -O - https://tjend.github.io/repo_terraform/repo_terraform.key | sudo apt-key add -
     sudo echo 'deb [arch=amd64] https://tjend.github.io/repo_terraform stable main' >> /etc/apt/sources.list.d/terraform.list
     sudo apt-get update
@@ -12,7 +12,7 @@ linux() {
 }
 
 mac() {
-    brew install ansible terraform packer awscli
+    brew install ansible terraform packer awscli make
 }
 
 MACHINE=$(uname -s)
