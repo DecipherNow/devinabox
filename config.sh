@@ -5,7 +5,7 @@ echo REMINDER: You need to install the awscli, packer, terraform, and ansible fo
 read -p "Do you wish to configure your aws configuration? [yn] " -n 1 yn
 echo
 case $yn in
-    [Yy]* ) aws configure;;
+    [Yy]* ) aws configure --profile devinabox;;
     [Nn]* ) echo -e "\nSkipping";;
     * ) echo -e "\nPlease answer yes or no. Defaulting to no, skipping";;
 esac
