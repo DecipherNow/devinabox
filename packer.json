@@ -6,7 +6,8 @@
   "builders": [
     {
       "type": "amazon-ebs",
-      "profile": "default",
+      "profile": "devinabox",
+      "region": "us-east-1",
       "source_ami_filter": {
         "filters": {
           "virtualization-type": "hvm",

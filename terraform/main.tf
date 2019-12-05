@@ -1,5 +1,6 @@
 provider "aws" {
-  region     = "us-east-1"
+  profile="devinabox"
+  region="us-east-1"
 }
 
 resource "aws_vpc" "vpc" {
