@@ -8,7 +8,8 @@ if [ ${RC} ]; then
 fi 
 ARGS=""
 if [ ! -z ${PUBKEY} ]; then
-  ARGS="--var public_key_path=../$PUBKEY"
+  absolute="$(cd $(dirname $PUBKEY); pwd)/$(basename $PUBKEY)"
+  ARGS="--var public_key_path=$absolute"
 fi
 cd terraform
 terraform init
