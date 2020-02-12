@@ -7,7 +7,7 @@ DevInABox works in a couple of stages. First it configures the repository by let
 
 Clone this repo onto your local machine.
 If you don't already have terraform, ansible, make, or packer installed run the `./prereqs.sh` script to install those. (Works for either Ubuntu or Mac).
-AWS account without MFA login requirements.
+Acquire an AWS account that does not have MFA requirements.
 
 ### Post Install
 
