@@ -18,3 +18,7 @@
   lineinfile: path="{{ item.stdout }}/.bashrc" regexp='^alias minikube=\'sudo /home/ubuntu/bin/minikube\'' line='alias minikube=\'sudo /home/ubuntu/bin/minikube\'' state=present
   with_items:
     - "{{ user_home }}"
+
+- name: Docker registry
+  lineinfile: path="/lib/systemd/system/docker.service" regexp='^ExecStart=/usr/bin/dockerd' line='ExecStart=/usr/bin/dockerd -H fd:// --containerd=/run/containerd/containerd.sock --insecure-registry 172.30.0.0/16'
+  become: yes
