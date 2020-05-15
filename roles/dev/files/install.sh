@@ -26,3 +26,11 @@ cp minishift-$SHIFTVER-linux-amd64/minishift $1/bin
 chmod +x $1/bin/minishift
 rm minishift-$SHIFTVER-linux-amd64.tgz
 rm -rf minishift-$SHIFTVER-linux-amd64
+
+OPENSHIFTCTL="https://github.com/openshift/origin/releases/download/v3.11.0/openshift-origin-client-tools-v3.11.0-0cbc58b-linux-64bit.tar.gz"
+wget $OPENSHIFTCTL
+tar xzf openshift-origin-client-tools-v3.11.0-0cbc58b-linux-64bit.tar.gz
+cp openshift-origin-client-tools-v3.11.0-0cbc58b-linux-64bit/oc $1/bin
+chmod +x $1/bin/oc
+rm openshift-origin-client-tools-v3.11.0-0cbc58b-linux-64bit.tar.gz
+rm -rf openshift-origin-client-tools-v3.11.0-0cbc58b-linux-64bit
