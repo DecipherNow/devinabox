@@ -11,10 +11,12 @@
       "source_ami_filter": {
         "filters": {
           "virtualization-type": "hvm",
-            "name": "ubuntu/images/*ubuntu-bionic-18.04-amd64-server-*",
-              "root-device-type": "ebs"
+          "name": "ubuntu/images/*ubuntu-bionic-18.04-amd64-server-*",
+          "root-device-type": "ebs"
         },
-        "owners": ["099720109477"],
+        "owners": [
+          "099720109477"
+        ],
         "most_recent": true
       },
       "instance_type": "{{user `instance_type` }}",
@@ -32,7 +34,8 @@
       "user": "ubuntu",
       "playbook_file": "packerPlay.yml",
       "extra_arguments": [
-        "--extra-vars", "ansible_python_interpreter=/usr/bin/python3"
+        "--extra-vars",
+        "ansible_python_interpreter=/usr/bin/python3"
       ]
     }
   ]
