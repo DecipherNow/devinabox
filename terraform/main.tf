@@ -90,7 +90,7 @@ data "aws_ami" "packer" {
   most_recent = true
   filter {
     name = "name"
-    values = ["dev-in-a-box-*"]
+    values = ["dev-in-a-box-2-2-*"]
   }
   owners = ["self"]
 }

@@ -21,7 +21,7 @@
       },
       "instance_type": "{{user `instance_type` }}",
       "ssh_username": "{{user `ssh_username`}}",
-      "ami_name": "dev-in-a-box-{{timestamp}}",
+      "ami_name": "dev-in-a-box-2-2-{{timestamp}}",
       "associate_public_ip_address": true,
       "tags": {
         "Builder": "Packer-Ansible"
