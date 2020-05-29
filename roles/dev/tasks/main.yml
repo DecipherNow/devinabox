@@ -5,8 +5,11 @@
   become: yes
 
 - name: Install helm
-  command: snap install helm --classic --channel=2.16
+  command: snap install helm --classic --channel=3.2
   become: yes
+
+- name: Install k3d
+  shell: curl -s https://raw.githubusercontent.com/rancher/k3d/master/install.sh | bash
 
 - name: Install Golang
   command: snap install go --classic
