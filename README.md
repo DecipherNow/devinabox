@@ -5,6 +5,12 @@ DevInABox works in a couple of stages. First it configures the repository by let
 
 ### Prerequisites
 
+- packer 1.5.4
+- terraform 0.13
+- ansible 2.9.13
+- aws cli
+- makefile
+
 Clone this repo onto your local machine.
 If you don't already have terraform, ansible, make, or packer installed run the `./prereqs.sh` script to install those. (Works for either Ubuntu or Mac).
 Acquire an AWS account that does not have MFA requirements.
