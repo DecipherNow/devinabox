@@ -10,7 +10,7 @@
   become: yes
 
 - name: Pull helm-charts
-  command: "git clone https://github.com/DecipherNow/helm-charts.git {{ item.stdout }}/helm-charts"
+  command: "git clone https://github.com/greymatter-io/helm-charts.git {{ item.stdout }}/helm-charts"
   with_items:
     - "{{ user_home }}"
 
