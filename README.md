@@ -70,7 +70,7 @@ Makes the AMI using Packer. This will take ~10 minutes to run.
 ## Terraform
 `make apply`
 
-This will launch the instance. This will tak ~5 minutes to run.
+This will launch the instance. This will take ~5 minutes to run.
 
 `make destroy`
 
