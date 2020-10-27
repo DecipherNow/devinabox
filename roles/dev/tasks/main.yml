@@ -9,7 +9,7 @@
   become: yes
 
 - name: Install k3d
-  shell: curl -s https://raw.githubusercontent.com/rancher/k3d/main/install.sh | bash
+  shell: export TAG=v3.1.2 && curl -s https://raw.githubusercontent.com/rancher/k3d/main/install.sh | bash
 
 - name: Install Golang
   command: snap install go --classic
