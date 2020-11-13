@@ -64,10 +64,6 @@
   command: snap install tree --classic
   become: yes
 
-- name: Install silver searcher
-  command: snap install ag-mcphail
-  become: yes
-
 - name: Set Git Editor
   command: git config --global core.editor vim
 
