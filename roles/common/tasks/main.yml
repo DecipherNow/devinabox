@@ -69,3 +69,11 @@
 
 - name: Set git credential store
   command: git config --global credential.helper store
+
+- name: Install yq
+  command: snap install yq --classic
+  become: yes
+
+- name: Install jq
+  command: snap install jq --classic
+  become: yes
