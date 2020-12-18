@@ -73,6 +73,10 @@ Runs an interactive dialog for configuring DevInABox.
 
 Makes the AMI using Packer. This will take ~10 minutes to run.
 
+An alternate AWS credentials profile and/or subnet ID can be passed to make.
+
+`make profile=power-user subnet_id=subnet-06bbe8fdbabf060a1`
+
 ## Terraform
 `make apply`
 

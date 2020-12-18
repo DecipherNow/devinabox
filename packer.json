@@ -1,12 +1,15 @@
 {
   "variables": {
     "ssh_username": "ubuntu",
-    "instance_type": "t2.micro"
+    "instance_type": "t2.micro",
+    "subnet_id": "",
+    "aws_profile": "devinabox"
   },
   "builders": [
     {
       "type": "amazon-ebs",
-      "profile": "devinabox",
+      "profile": "{{user `aws_profile`}}",
+      "subnet_id": "{{user `subnet_id`}}",
       "region": "us-east-1",
       "source_ami_filter": {
         "filters": {
@@ -24,7 +27,8 @@
       "ami_name": "dev-in-a-box-2-2-{{timestamp}}",
       "associate_public_ip_address": true,
       "tags": {
-        "Builder": "Packer-Ansible"
+        "Builder": "Packer-Ansible",
+        "devinabox": ""
       }
     }
   ],

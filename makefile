@@ -5,7 +5,7 @@ all: setup
 	./apply.sh
 
 setup: config
-	packer build packer.json
+	packer build -var="aws_profile=$(profile)" -var="subnet_id=$(subnet_id)" packer.json
 
 config:
 	./config.sh
@@ -17,7 +17,7 @@ apply: verify-terraform-version
 	./apply.sh
 
 packer:
-	packer build packer.json
+	packer build -var="aws_profile=$(profile)" -var="subnet_id=$(subnet_id)" packer.json
 
 verify-terraform-version:
 	$(eval TFCHECK=$(shell terraform version -json | grep terraform_version | awk -F\" '{print $$4}'))
