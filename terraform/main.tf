@@ -95,6 +95,11 @@ data "aws_ami" "packer" {
   owners = ["self"]
 }
 
+resource "aws_eip" "eip" {
+  vpc = true
+  instance = aws_instance.instance.id
+}
+
 resource "aws_instance" "instance" {
   ami           = data.aws_ami.packer.id
   instance_type = var.instance_type
