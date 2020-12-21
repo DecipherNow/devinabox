@@ -75,3 +75,15 @@
     creates: "{{ item.stdout }}/bin/minikube"
   with_items:
     - "{{ user_home }}"
+
+- name: Install jq
+  command: snap install jq --classic
+  become: yes
+
+- name: Install pip
+  command: apt-get install python3-pip
+  become: yes
+
+- name: Install yq
+  command: pip3 install yq
+  become: yes
