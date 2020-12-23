@@ -6,6 +6,7 @@ all: setup
 
 setup: config
 	packer build packer.json
+	rm -f .credentials > /dev/null 2>&1
 
 config:
 	./config.sh
@@ -18,6 +19,7 @@ apply: verify-terraform-version
 
 packer:
 	packer build packer.json
+	rm -f .credentials > /dev/null 2>&1
 
 verify-terraform-version:
 	$(eval TFCHECK=$(shell terraform version -json | grep terraform_version | awk -F\" '{print $$4}'))
