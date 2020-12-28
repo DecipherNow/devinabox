@@ -20,6 +20,15 @@ case $yn in
     * ) echo -e "\nPlease answer yes or no. Defaulting to no, skipping"; exit 0;;
 esac
 
+echo -e "\nIn order to install the Grey Matter CLI, please provide your LDAP credentials."
+echo -n "LDAP username: "
+read ldapUsername
+echo -n "LDAP password: "
+read -s ldapPassword
+echo ""
+
+echo ${ldapUsername}:${ldapPassword} > ./.credentials
+
 if [ -n ${PUBKEY} ]; then
     echo export PUBKEY=$PUBKEY > .keyloc
 fi

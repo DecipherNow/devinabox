@@ -75,3 +75,45 @@
     creates: "{{ item.stdout }}/bin/minikube"
   with_items:
     - "{{ user_home }}"
+
+- name: Install gmenv
+  command: git clone https://github.com/greymatter-io/gmenv.git {{ item.stdout }}/.gmenv
+  with_items:
+    - "{{ user_home }}"
+
+- name: Add gmenv to PATH
+  lineinfile: path="{{ item.stdout }}/.bashrc" regexp='^export PATH="$HOME/.gmenv/bin:$PATH"' line='export PATH="$HOME/.gmenv/bin:$PATH"' state=present
+  with_items:
+    - "{{ user_home }}"
+
+- name: Set Credentials on remote
+  copy:
+    src: ../../../.credentials
+    dest: "{{ item.stdout }}/.gmenv/credentials"
+    owner: ubuntu
+    group: ubuntu
+    mode: '0600'
+  with_items:
+    - "{{ user_home }}"
+
+- name: Install Grey Matter CLI
+  shell: GMENV_REPO=development {{ item.stdout }}/.gmenv/bin/gmenv install latest && rm -f {{ item.stdout }}/.gmenv/credentials > /dev/null
+  with_items:
+    - "{{ user_home }}"
+
+- name: Set Grey Matter version
+  command: "{{ item.stdout }}/.gmenv/bin/gmenv use latest"
+  with_items:
+    - "{{ user_home }}"
+
+- name: Alias gm to greymatter
+  lineinfile: path="{{ item.stdout }}/.bashrc" regexp='^alias gm="greymatter"' line='alias gm="greymatter"' state=present
+  with_items:
+    - "{{ user_home }}"
+
+- name: Configure Grey Matter CLI
+  blockinfile:
+    path: "{{ item.stdout }}/.bashrc"
+    block: "{{ lookup('file', '../files/gm_config.txt') }}"
+  with_items:
+    - "{{ user_home }}"

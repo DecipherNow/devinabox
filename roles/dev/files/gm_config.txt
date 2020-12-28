@@ -1,0 +1,16 @@
+export EDITOR=vi
+export GREYMATTER_CONSOLE_LEVEL=debug
+export GREYMATTER_API_HOST=localhost:30000
+export GREYMATTER_API_SSLCERT=/home/ubuntu/helm-charts/certs/quickstart.crt
+export GREYMATTER_API_SSLKEY=/home/ubuntu/helm-charts/certs/quickstart.key
+export GREYMATTER_API_SSL=true
+export GREYMATTER_API_PREFIX="/services/control-api/latest"
+export GREYMATTER_API_INSECURE=true
+
+export GREYMATTER_CATALOG_HOST=localhost:30000
+export GREYMATTER_CATALOG_INSECURE=true
+export GREYMATTER_CATALOG_PREFIX="/services/catalog/latest"
+export GREYMATTER_CATALOG_SSL=true
+export GREYMATTER_CATALOG_SSLCERT=/home/ubuntu/helm-charts/certs/quickstart.crt
+export GREYMATTER_CATALOG_SSLKEY=/home/ubuntu/helm-charts/certs/quickstart.key
+export GREYMATTER_CATALOG_ZONENAME=zone-default-zone
