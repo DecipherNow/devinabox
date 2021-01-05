@@ -1,12 +1,11 @@
 SHELL := /bin/bash
-TF_VERSION=0.13
 
-all: setup
+all: setup verify-terraform-version
 	./apply.sh
 
 setup: config
 	packer build packer.json
-	rm -f .credentials > /dev/null 2>&1
+	@rm -f .credentials > /dev/null 2>&1
 
 config:
 	./config.sh
@@ -19,11 +18,11 @@ apply: verify-terraform-version
 
 packer:
 	packer build packer.json
-	rm -f .credentials > /dev/null 2>&1
+	@rm -f .credentials > /dev/null 2>&1
 
 verify-terraform-version:
-	$(eval TFCHECK=$(shell terraform version -json | grep terraform_version | awk -F\" '{print $$4}'))
-	if [[ ! $(TFCHECK) == ${TF_VERSION}.* ]]; then \
-		echo "You need to use terraform version ${TF_VERSION}"; \
+	$(eval TFCHECK=$(shell cd terraform; terraform plan -target=terraform.required_version > /dev/null 2>&1; echo $$?))
+	@if [ ${TFCHECK} -ne 0 ]; then \
+		echo "Error: Your terraform version is not valid for this configuration."; \
 		exit 2 ; \
 	fi
