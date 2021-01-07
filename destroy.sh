@@ -4,6 +4,8 @@ deployments=""
 
 cd $(dirname "${BASH_SOURCE[0]}")
 
+echo -e " ==> Checking deployments... \n"
+
 cd terraform
 deployments=$(ls devinabox_*.tfstate 2>/dev/null| sed 's/devinabox_//g' | sed 's/.tfstate//g')
 
@@ -13,7 +15,7 @@ if [ ! -z "$deployments" ]; then
   do
     echo "     $deployment"
   done
-  echo -e -n "\nWhich deployment do you want to destroy? "
+  echo -e -n "\nEnter name of deployment you want to destroy: "
   read destroy_target
 
   if [ ! -z "$destroy_target" ]; then

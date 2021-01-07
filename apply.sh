@@ -22,11 +22,11 @@ if [ ! -z ${PUBKEY} ]; then
 fi
 
 cd terraform
-terraform init
+echo -e " ==> Creating deployment '${deploy_name}'...\n"
 terraform apply --state=$STATE_FILE $ARGS -auto-approve
 public_ip=$(terraform output --state=$STATE_FILE ec2ip )
 
-echo -e "\n ==> Waiting for the EC2 instance to be ready..."
+echo -e "\n ==> Waiting for deployment to be ready..."
 sleep 30s
 
 echo -e "\nRun the following command to access the machine. You may need to specify your private key with -i <privkey> :\n\n     ssh ubuntu@${public_ip}\n"
