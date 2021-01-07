@@ -2,3 +2,5 @@
 .credentials
 packerPlay.retry
 id_rsa*
+*.pyc
+terraform/*.tfstate*

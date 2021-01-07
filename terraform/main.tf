@@ -8,13 +8,19 @@ resource "aws_vpc" "vpc" {
   enable_dns_support   = true
   enable_dns_hostnames = true
   tags = {
-    "Source" = var.origin_tag
+    "Name"       = "devinabox_${var.deploy_name}"
+    "App"        = "devinabox"
+    "DeployName" = var.deploy_name
+    "Source"     = var.origin_tag
   }
 }
 
 resource "aws_internet_gateway" "igw" {
   vpc_id = aws_vpc.vpc.id
   tags = {
+    "Name"       = "devinabox_${var.deploy_name}"
+    "App"        = "devinabox"
+    "DeployName" = var.deploy_name
     "Source" = var.origin_tag
   }
 }
@@ -24,8 +30,11 @@ resource "aws_subnet" "subnet_public" {
   cidr_block = "172.31.32.0/20"
   map_public_ip_on_launch = "true"
   tags = {
-    "Source" = var.origin_tag
-    "Type" = "Public"
+    "Name"       = "devinabox_${var.deploy_name}"
+    "App"        = "devinabox"
+    "DeployName" = var.deploy_name
+    "Source"     = var.origin_tag
+    "Type"       = "Public"
   }
 }
 
@@ -36,23 +45,26 @@ resource "aws_route_table" "rtb_public" {
       gateway_id = aws_internet_gateway.igw.id
   }
   tags = {
-    "Source" = var.origin_tag
+    "Name"       = "devinabox_${var.deploy_name}"
+    "App"        = "devinabox"
+    "DeployName" = var.deploy_name
+    "Type"       = "Public"
+    "Source"     = var.origin_tag
   }
 }
 
 resource "aws_route_table_association" "rta_subnet_public" {
   subnet_id      = aws_subnet.subnet_public.id
   route_table_id = aws_route_table.rtb_public.id
-
 }
 
 resource "aws_key_pair" "ec2key" {
-  key_name = "publicKey"
+  key_name = "devinabox_${var.deploy_name}"
   public_key = file(var.public_key_path)
 }
 
 resource "aws_security_group" "sg_22" {
-  name = "devinaboxSG"
+  name = "devinabox_${var.deploy_name}"
   vpc_id = aws_vpc.vpc.id
   ingress {
       from_port   = 22
@@ -82,7 +94,10 @@ resource "aws_security_group" "sg_22" {
     cidr_blocks = ["0.0.0.0/0"]
   }
   tags = {
-    "Source" = var.origin_tag
+    "Name"       = "devinabox_${var.deploy_name}"
+    "App"        = "devinabox"
+    "DeployName" = var.deploy_name
+    "Source"     = var.origin_tag
   }
 }
 
@@ -98,6 +113,11 @@ data "aws_ami" "packer" {
 resource "aws_eip" "eip" {
   vpc = true
   instance = aws_instance.instance.id
+  tags = {
+    "Name"       = "devinabox_${var.deploy_name}"
+    "App"        = "devinabox"
+    "DeployName" = var.deploy_name
+  }
 }
 
 resource "aws_instance" "instance" {
@@ -117,7 +137,9 @@ resource "aws_instance" "instance" {
   }
 
   tags = {
-        "Source" = var.origin_tag
-        "Name" = "DevInABox"
+    "Name"       = "devinabox_${var.deploy_name}"
+    "App"        = "devinabox"
+    "DeployName" = var.deploy_name
+    "Source" = var.origin_tag
   }
 }

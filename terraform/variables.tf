@@ -1,3 +1,7 @@
+variable "deploy_name" {
+  description = "Name to append to this deployment of dev-in-a-box. Must be unique."
+}
+
 variable "origin_tag" {
   description = "Tag to let aws console users to know what created the aws resources"
   default = "dev-in-a-box"
