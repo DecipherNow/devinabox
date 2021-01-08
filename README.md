@@ -80,6 +80,10 @@ Makes the AMI using Packer. This will take ~10 minutes to run.
 This will launch a separate DevInABox instance with a random Docker-style. This can be run multiple times to create multiple DevInABox deployments.
 Creating the DevInABox deployment will take ~5 minutes to run.
 
+`make list`
+
+This will show all the existing DevInaABox instance names and the ip address you can use to connect to them.
+
 `make destroy`
 
 Provides a list of DevInABox deployments and prompts for which one to destroy. Entering the name of a DevInABox deployment will only destroy that particular deployment, regardless

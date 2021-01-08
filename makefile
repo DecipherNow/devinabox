@@ -21,6 +21,10 @@ destroy: verify-terraform-version
 apply: verify-terraform-version
 	@./apply.sh
 
+.PHONY: list
+list: 
+	@./list.sh
+
 .PHONY: packer
 packer:
 	packer build packer.json
