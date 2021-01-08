@@ -8,6 +8,7 @@ DevInABox works in a couple of stages. First it configures the repository by let
 - packer 1.5.4
 - terraform 0.13
 - ansible 2.9.13
+- python
 - aws cli
 - makefile
 
@@ -76,8 +77,10 @@ Makes the AMI using Packer. This will take ~10 minutes to run.
 ## Terraform
 `make apply`
 
-This will launch the instance. This will take ~5 minutes to run.
+This will launch a separate DevInABox instance with a random Docker-style. This can be run multiple times to create multiple DevInABox deployments.
+Creating the DevInABox deployment will take ~5 minutes to run.
 
 `make destroy`
 
-This will destroy the instance. Yay! Good for keeping the AWS bill down.
+Provides a list of DevInABox deployments and prompts for which one to destroy. Entering the name of a DevInABox deployment will only destroy that particular deployment, regardless
+of how many other deployments there are. It will also remove the state file for that deployment if there are no resources left in it. Yay for keeping the AWS bill down.
