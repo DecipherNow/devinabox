@@ -1,0 +1,61 @@
+
+
+function connect-k3d(){
+    local k3dClusterName=""
+    if [[ ! -z ${1} ]]; then
+        k3dClusterName="${1}"
+    else
+        k3d cluster list
+        read -p "which k3d cluster would you like to connect to? (enter ':q!' to quit)   " k3dClusterName
+    fi
+    if [[ ! "${k3dClusterName}" == ":q!" ]]; then
+        export KUBECONFIG=$(k3d kubeconfig write ${k3dClusterName})
+
+        echo "${KUBECONFIG}"
+        kubectl get nodes
+    else
+        echo "Bye!"
+    fi
+}
+
+function get_greymatter_certs(){
+    localhost namespace=""
+    if [[ ! -z $1 ]]; then
+        echo "Namespace specified [${namespace}]"
+        namespace="-n ${1}"
+    fi
+
+    local pass="password"
+    
+    local cwd=${PWD}
+    echo "Current working directory: ${cwd}"
+    
+    local certTempDir="${cwd}/temp-certs-dir-$(date +"%Y%m%d%H%M%S")"
+    mkdir -p ${certTempDir}
+
+    kubectl get secret greymatter-user-cert -o jsonpath="{.data['tls\.crt']}" ${namespace} | base64 -d > ${certTempDir}/tls.crt
+    kubectl get secret greymatter-user-cert -o jsonpath="{.data['tls\.key']}" ${namespace} | base64 -d > ${certTempDir}/tls.key
+    kubectl get secret greymatter-user-cert -o jsonpath="{.data['ca\.crt']}" ${namespace} | base64 -d > ${certTempDir}/ca.crt
+
+    if [[ -f ${cwd}/greymatter.p12 ]]; then
+        rm greymatter.p12
+    fi
+
+    openssl pkcs12 -export -out greymatter.p12 -inkey ${certTempDir}/tls.key -in ${certTempDir}/tls.crt -certfile ${certTempDir}/ca.crt -passout pass:${pass}
+
+    rm -r ${certTempDir}
+
+    echo "Your cert has been extracted from greymatter and is located at [${cwd}/greymatter.p12] "
+}
+
+function gm-c(){
+    args=$@
+    # if [[ "${1}" == "list" ]];
+    # to do, update this so that if you specify -c it will use that instead of using the greymatter.yaml that is located in the curent
+    if [[ -e ".greymatter.yaml" ]]; then
+        echo "Using .greymatter.yaml file"
+        greymatter $(echo "$args") -c .greymatter.yaml
+    else
+        greymatter $(echo "$args")
+    fi
+}

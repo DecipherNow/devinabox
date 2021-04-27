@@ -117,3 +117,20 @@
     block: "{{ lookup('file', '../files/gm_config.txt') }}"
   with_items:
     - "{{ user_home }}"
+
+- name: Add bash_functions file
+  copy:
+    src: ../files/bash_functions
+    dest: "{{ item.stdout }}/.bash_functions"
+    owner: ubuntu
+    group: ubuntu
+    mode: '0600'
+  with_items:
+    - "{{ user_home }}"
+
+- name: Source bash_functions file
+  lineinfile:
+    dest: "{{ item.stdout }}/.bashrc"
+    line: "source $HOME/.bash_functions"
+  with_items:
+    - "{{ user_home }}"
